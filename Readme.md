@@ -43,5 +43,4 @@ Menghubungkan Git dengan Github :
    - git branch -M nama_branch (contoh: git branch -M main)
 8. Mengupload / menyimpan ke github
    - git push -u alias_name nama_branch (contoh: git push -u origin main)
-9.  
 
