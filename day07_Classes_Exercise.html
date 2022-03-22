@@ -1,0 +1,114 @@
+<script>
+  /**
+   * 1. Buat Class Produk dengan properti : name, stock, harga
+   * 2. Buat class Turunan FnB yang memiliki property tambahan: category, expDate => setiap mau tambah produk, ditanya dulu kategorinya apa (FnB atau bukan). kalau nonFnB cukup pakai class utama, kalau FnB pakai class turunan => category di class ini misal snack, minuman
+   * 3. Buat juga method untuk generate informasi produk sehingga bisa ditampilkan pada list Produk => sama seperti printproduk pada contoh
+   * 
+   */
+
+  class Produk {
+    constructor(_name, _stock, _price) {
+      this.name = _name;
+      this.stock = _stock;
+      this.price = _price;
+    }
+
+    informasi = () => {
+      return `Barang: ${this.name}; Stok: ${this.stock}; Harga: ${this.price}`
+
+    /**
+     * informasi = (numb, expDate = null) =>{
+     *  if (expDate){
+     *    return `Barang: ${this.name}; Stok: ${this.stock}; Harga: ${this.price}; Tipe: ${this.type}; Exp: ${this.expDate}`
+     * } else {
+     *    return `Barang: ${this.name}; Stok: ${this.stock}; Harga: ${this.price}`
+     *  }
+     * }
+     * 
+     */
+    }
+  }
+
+  class ProdukFnB extends Produk {
+    constructor(_name, _stock, _price, _type, _expDate) {
+      super(_name, _stock, _price);
+      this.type = _type;
+      this.expDate = _expDate;
+    }
+
+    informasi = () => {
+      return `Barang: ${this.name}; Stok: ${this.stock}; Harga: ${this.price}; Tipe: ${this.type}; Exp: ${this.expDate}`
+    }
+  }
+
+  let database = [];
+  let stopProgram;
+
+  const printData = (data) => {
+    return data.map((value, index) => {
+      return `${index + 1}. ${value.informasi()}`
+    }).join(`\n`);
+  }
+
+  do {
+    let menuUtama = Number(prompt(`Silahkan atur data barang:
+  1. Tambah Produk
+  2. Beli Produk
+  3. Cek Stock`))
+
+    if (menuUtama == 3) {
+      alert("List Barang : \n" + printData(database))
+    }
+
+    else if (menuUtama == 1) {
+      let cekKategoriProduk = prompt(`Kategori produk yang akan ditambah?\n1. Non Food & Beverage\n2. FnB`);
+      let productName = prompt(`Masukkan nama produk baru:`);
+      let productStock = Number(prompt(`Masukkan stock:`));
+      let productPrice = (prompt(`Masukkan harga:`));
+      if (cekKategoriProduk == 1) {
+        database.push(new Produk(productName, productStock, productPrice))
+      } else if (cekKategoriProduk == 2) {
+        let productType = prompt(`Masukkan tipe FnB:`);
+        let productExpDate = prompt(`Masukkan expiry date:`);
+        database.push(new ProdukFnB(productName, productStock, productPrice, productType, productExpDate))
+      }
+      alert(`Produk baru telah terdaftar ✅`);
+    }
+
+    // else if (menuUtama == 2) {
+    //   let jumlahBeli;
+    //   let indexBeli = Number(prompt("Silahkan pilih barang : \n" + printData(database)));
+    //   if (indexBeli <= database.length && indexBeli >= 0) {
+    //     let cekJumlah;
+    //     console.log(database[indexBeli - 1].stock)
+    //     do {
+    //       jumlahBeli = Number(prompt(`Beli ${database[indexBeli - 1].name} berapa?`))
+    //       if (jumlahBeli <= database[indexBeli - 1].stock) {
+    //         cekJumlah = false;
+    //       } else {
+    //         alert(`Stock tidak cukup. Masukkan ulang jumlah beli`);
+    //         cekJumlah = true;
+    //       }
+    //       console.log(cekJumlah)
+    //     } while (cekJumlah)
+
+    //     let hargaTotal = database[indexBeli - 1].price * jumlahBeli;
+    //     let uangBayar = Number(prompt(`Total belanja anda : Rp ${hargaTotal} \n Masukkan uang anda:`))
+    //     if (uangBayar >= hargaTotal) {
+    //       database[indexBeli - 1].stock -= jumlahBeli;
+    //       let kembalian = uangBayar - hargaTotal;
+    //       alert(`Kembalian anda dalah Rp ${kembalian}`)
+    //     } else {
+    //       alert(`Pembelian gagal, uang anda tidak cukup ❌`)
+    //     }
+    //   } else {
+    //     alert("Index barang salah")
+    //   }
+    // }
+    else {
+      alert("Menu yang anda cari tidak ada");
+    }
+    stopProgram = confirm("Kembali ke menu utama?");
+
+  } while (stopProgram)
+</script>

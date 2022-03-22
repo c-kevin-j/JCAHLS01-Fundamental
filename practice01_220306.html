@@ -1,0 +1,158 @@
+<script>
+  // =============Tugas 1=============
+  // di file day02_pr.js
+
+  // =============Tugas 2=============
+  // aplikasi membuat pendeteksi ganjil/genap tanpa menggunakan modulus
+  // let angka = Number(prompt("Masukkan Angka: "))
+  // if (angka == Math.floor(angka / 2) * 2) {
+  //   alert("Angka genap")
+  // } else {
+  //   alert("Angka ganjil")
+  // }
+
+  // =============Tugas 3=============
+  // aplikasi apakah input string polindrom 
+  // let inputText = prompt("Masukan kata:");
+
+  // let cekText = "";
+  // for (i = inputText.length - 1; i >= 0; i--) {
+  //   cekText += inputText[i];
+  // }
+
+  // if (inputText == cekText) {
+  //   alert(`Kata ${inputText} adalah Polindrom ✅`)
+  // } else {
+  //   alert(`Kata ${inputText} bukan Polindrom ❌`)
+  // }
+
+  // CARA KEDUA
+  // string.split(separator) : merubah data string menjadi data array => contoh inputText.split("")
+  // string => malam ==split==> array ['m','a','l','a','m']
+  // if (inputText.split('').reverse().join('').toLowerCase() == inputText.toLowerCase()) {
+  //   alert(`kata Polindrom`)
+  // }
+  // else {
+  //   alert(`bukan Polindrom`)
+  // }
+
+  // CARA KETIGA
+  // let textReverse="";
+  // for(let i=inputText.length;i>=0;i--){
+  //   string.charAt(index) : untuk mengakses string berdasarkan alamat index hurufnya
+  //   textReverse +=inputText.charAt(i);
+  // }
+  // if(textReverse == inputText) {
+  //   alert(`kata Polindrom`)
+  // }
+  // else {
+  //   alert(`bukan Polindrom`)
+  // }
+
+
+  // =============Tugas 4=============
+  // ubah string menjadi title case
+  // let inputJudul = prompt("Masukkan Judul:").toLowerCase();
+  // let judulBaru=" ";
+  // for(let i=0; i<inputJudul.length; i++){
+  //   if(i==0){
+  //     judulBaru+=inputJudul[i].toUpperCase();
+  //   } else 
+  //   if(inputJudul[i]==" "&&inputJudul[i+1]!=" "){
+  //     judulBaru+=" "+inputJudul[i+1].toUpperCase();
+  //     i++;
+  //   } else {
+  //     judulBaru+=inputJudul[i];
+  //   }
+  //   console.log(judulBaru)
+  // }
+  // alert(`Judul baru: ${judulBaru}`)
+
+
+  //===============Tugas 5==================
+  // identifikasi huruf vokal, dan jumlah jenis huruf vokal
+  let inputKalimat = prompt(`Input Kalimat :`).toLowerCase();
+  let hurufVokal = "";
+  for (let i = 0; i < inputKalimat.length; i++) {
+    let cekVokal = true;
+    if ((inputKalimat[i] == 'a') || (inputKalimat[i] == 'i') || (inputKalimat[i] == 'u') || (inputKalimat[i] == 'e') || (inputKalimat[i] == 'o')) {
+      for (let j = 0; j < hurufVokal.length; j++) {
+        if (hurufVokal[j] == inputKalimat[i]) {
+          cekVokal = false;
+        }
+      }
+      if (cekVokal) {
+        hurufVokal += inputKalimat[i];
+      }
+    }
+  }
+
+  alert(`Kalimat = ${inputKalimat}
+Huruf vokal = ${hurufVokal}
+Jumlah jenis huruf vokal = ${hurufVokal.length}`)
+
+
+  //====CARA 2=====
+  // let input = prompt("Masukkan").toLowerCase();
+
+  // let vokal = {
+  //   'a': 0,
+  //   'e': 0,
+  //   'i': 0,
+  //   'o': 0,
+  //   'u': 0,
+  // };
+
+  // let hurufVokal = '';
+  // let countVokal = 0;
+
+  // for(let i=0; i<input.length;i++) {
+  //   if (vokal[input[i]] === 0) {
+  //     hurufVokal += input[i];
+  //     countVokal++;
+  //     vokal[input[i]] = 1;
+  //   }
+  // }
+  // alert(`Kalimat = ${input}
+  // Huruf vokal = ${hurufVokal}
+  // Jumlah jenis huruf vokal = ${countVokal}`)
+
+  //=======CARA 3=======
+  // let kata = prompt("Masukkan kalimat :")
+  // let vokal = '';
+  // for (let i=0; i<kata.length; i++){
+  //   if (kata.charAt(i).toLowerCase() == 'a'||kata.charAt(i).toLowerCase() == 'i'||kata.charAt(i).toLowerCase() == 'u'||kata.charAt(i).toLowerCase() == 'e'||kata.charAt(i).toLowerCase() == 'o'){
+  //     if (!vokal.includes(kata.charAt(i).toLowerCase())){
+  //       vokal += kata.charAt(i).toLowerCase();
+  //     }
+  //   }
+  // }
+  // alert(
+  //   `Kalimat = ${kata}
+  //   Huruf vokal = ${vokal}
+  //   Jumlah jenis huruf vokal = ${vokal.length}`
+  // )
+
+  let inputKalimat = prompt(`Input Kalimat :`).toLowerCase();
+  let hurufVokal = "";
+  for (let i = 0; i < inputKalimat.length; i++) {
+    let cekVokal = true;
+    if ((inputKalimat[i] == 'a') || (inputKalimat[i] == 'i') || (inputKalimat[i] == 'u') || (inputKalimat[i] == 'e') || (inputKalimat[i] == 'o')) {
+      for (let j = 0; j < hurufVokal.length; j++) {
+        if (hurufVokal[j] == inputKalimat[i]) {
+          cekVokal = false;
+        }
+      }
+      if (cekVokal) {
+      hurufVokal += inputKalimat[i];
+      }
+    }
+  }
+  
+  alert(`Kalimat = ${inputKalimat}
+        Huruf vokal = ${hurufVokal}
+        Jumlah jenis huruf vokal = ${hurufVokal.length}`)
+
+
+
+</script>

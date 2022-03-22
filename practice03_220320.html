@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>Drawing Your Shape</h1>
+  <select id="shape">
+    <option value="persegi">Persegi</option>
+    <option value="segitiga">Segitiga Siku Kiri</option>
+  </select>
+  <p>Size of shape</p>
+  <input type="number" id="size" />
+  <button type="button" onclick="handleSubmit()">Submit</button>
+  <p id="cetak"></p>
+</body>
+
+<script>
+  const handleSubmit = () => {
+    let shape = document.getElementById("shape")
+    let size = document.getElementById("size")
+    printData(shape.value, size.value);
+  }
+
+  const printData = (shape, size) => {
+    let cetak = '';
+    if (shape == 'persegi') {
+      cetak = persegi(size);
+    } else if (shape == 'segitiga') {
+      cetak = segitiga(size)
+    }
+    document.getElementById("cetak").innerHTML = cetak
+  }
+
+  const persegi = (size) => {
+    let temp = ''
+    for (let i = 1; i <= size; i++) {
+      for (let j = 1; j <= size; j++) {
+        if (i % 2 == 0) {
+          temp += "# "
+        } else {
+          if (j % 2 == 0) {
+            temp += "# "
+          } else {
+            temp += "* "
+          }
+        }
+      }
+      temp += "<br />"
+    }
+    return temp;
+  }
+
+  const segitiga = (size) => {
+    let temp = '';
+    for (let i = 1; i <= size; i++) {
+      for (let j = 1; j <= i; j++) {
+        if (j % 2 == 0) {
+          temp += "# "
+        } else {
+          temp += "* "
+        }
+      }
+      temp += "<br />"
+    }
+    return temp;
+  }
+</script>
+
+</html>

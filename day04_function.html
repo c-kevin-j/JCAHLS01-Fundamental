@@ -1,0 +1,67 @@
+<script>
+  let data = ['Motor', 'Sepatu'];
+  let stopProgram;
+
+  const printData = () => {
+    // let dataString="";
+    // for (let i = 0; i < arg.length; i++) {
+    //   dataString += `${i + 1}. ${arg[i]} \n`
+    // }
+    // data.forEach((value,index) =>{
+    //   dataString += `${index + 1}. ${value}\n`
+    // });
+
+    return data.map((value,index) =>{
+      return `${index + 1}. ${value}`
+    }).join(`\n`);
+
+    // return dataString=dataMap.join(`\n`);
+  } 
+
+  do {
+    let menuUtama = Number(prompt(`Silahkan atur data barang:
+  1. Tambah Data
+  2. Hapus Data
+  3. Lihat Data
+  4. Edit Data`))
+    // let dataString = '';
+    // for (let i = 0; i < data.length; i++) {
+    //   dataString += `${i + 1}. ${data[i]} \n`
+    // }
+    
+    if (menuUtama == 3) {
+      alert("List Barang : \n" + printData())
+    } else if (menuUtama == 1) {
+      let dataBaru = prompt(`Masukkan data baru:`);
+      //alert(`${dataBaru} akan ditambahkan`);
+      data.push(dataBaru);
+      // data[data.length]=dataBaru;
+    } else if (menuUtama == 2) {
+      // let dataString = '';
+      // for (let i = 0; i < data.length; i++) {
+      //   dataString += `${i + 1}. ${data[i]} \n`;
+      // }
+      let indexHapus = Number(prompt("Pilih index data yang ingin dihapus : \n" + printData()));
+      //if (indexHapus<(data.length) && indexHapus >=1){
+        alert(`Data ${data[indexHapus-1]} dihapus`);
+        data.splice(indexHapus - 1, 1);
+      //} else {
+        //alert("Index di luar data");
+      //}
+    } else if (menuUtama == 4) {
+      // let dataString = '';
+      // for (let i = 0; i < data.length; i++) {
+      //   dataString += `${i + 1}. ${data[i]} \n`
+      // }
+      let indexEdit = Number(prompt("Pilih index data yang ingin dihapus : \n" + printData()));
+      let dataEdit = prompt(`Anda akan mengedit data ${data[indexEdit-1]}. Masukkan data yang baru`);
+      //alert(`Data ${data[indexEdit-1]} akan diubah menjadi ${dataEdit}`);
+      data.splice(indexEdit-1,1,dataEdit);
+      // data[index-1]=dataEdit
+    } else {
+      alert("Menu yang anda cari tidak ada");
+    }
+    stopProgram = confirm("Kembali ke menu utama?");
+
+  } while (stopProgram == true)
+</script>

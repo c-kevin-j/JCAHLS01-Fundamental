@@ -1,0 +1,64 @@
+<script>
+  let data = [
+  {
+    name: "Hoodie",
+    stock: 12,
+    price: 75000
+  },
+  {
+    name: "Sepatu",
+    stock: 10,
+    price: 80000
+  },
+];
+  let stopProgram;
+
+  const printData = () => {
+    return data.map((value,index) =>{
+      return `${index + 1}. Nama Barang: ${value.name} \n Stok: ${value.stock} \n Harga: ${value.price}\n`
+    }).join(`\n`);
+  } 
+
+  do {
+    let menuUtama = Number(prompt(`Silahkan atur data barang:
+  1. Tambah Data
+  2. Hapus Data
+  3. Lihat Data
+  4. Edit Data`))
+      
+    if (menuUtama == 3) {
+      alert("List Barang : \n" + printData())
+    } else if (menuUtama == 1) {
+      let dataBaru = {
+        name : '',
+        stock : '',
+        price : '',
+      }
+      dataBaru.name = prompt(`Masukkan nama produk yang akan ditambah:`);
+      dataBaru.stock = prompt(`Masukkan stock produk yang baru ditambahkan:`)
+      dataBaru.price = prompt(`Masukkan harga produk yang baru ditambahkan:`);
+      data.push(dataBaru)
+      
+      // data[data.length]=dataBaru;
+    } else if (menuUtama == 2) {
+      let indexHapus = Number(prompt("Pilih index data yang ingin dihapus : \n" + printData()));
+        alert(`Data ${data[indexHapus-1]} dihapus`);
+        data.splice(indexHapus - 1, 1);
+    } else if (menuUtama == 4) {
+      let indexEdit = Number(prompt("Pilih index data yang ingin dihapus : \n" + printData()));
+      let dataEdit = {
+        name : '',
+        stock : '',
+        price : '',
+      }
+      dataEdit.name = prompt(`Masukkan nama produk yang akan baru:`);
+      dataEdit.stock = prompt(`Masukkan stock produk yang baru:`)
+      dataEdit.price = prompt(`Masukkan harga produk yang baru:`);
+      data.splice(indexEdit-1,1,dataEdit);
+    } else {
+      alert("Menu yang anda cari tidak ada");
+    }
+    stopProgram = confirm("Kembali ke menu utama?");
+
+  } while (stopProgram == true)
+</script>

@@ -1,0 +1,82 @@
+<script>
+  let database = [
+    {
+      name: "Jaket",
+      stock: 20,
+      price: 150000
+    },
+    {
+      name: "Kaos",
+      stock: 10,
+      price: 35000
+    },
+    {
+      name: "Sepatu",
+      stock: 25,
+      price: 75000
+    }
+  ];
+  let stopProgram;
+
+  const printData = (data) => {
+    return data.map((value, index) => {
+      return `${index + 1}. Barang: ${value.name}; Stok: ${value.stock}; Harga: ${value.price}`
+    }).join(`\n`);
+  }
+
+  do {
+    let menuUtama = Number(prompt(`Silahkan atur data barang:
+  1. Tambah Produk
+  2. Beli Produk
+  3. Cek Stock`))
+
+    if (menuUtama == 3) {
+      alert("List Barang : \n" + printData(database))
+    } else if (menuUtama == 1) {
+
+      let produkBaru = {
+        name: '',
+        stock: 0,
+        price: 0
+      }
+      produkBaru.name = prompt(`Masukkan nama produk baru:`);
+      produkBaru.stock = Number(prompt(`Masukkan stock:`));
+      produkBaru.price = Number(prompt(`Masukkan harga:`));
+      alert(`Anda telah menambahkan ${produkBaru.name} ke dalam database`)
+      database = [...database, produkBaru]
+    } else if (menuUtama == 2) {
+      let jumlahBeli;
+      let indexBeli = Number(prompt("Silahkan pilih barang : \n" + printData(database)));
+      if (indexBeli <= database.length && indexBeli >= 0) {
+        let cekJumlah;
+        console.log(database[indexBeli - 1].stock)
+        do {
+          jumlahBeli = Number(prompt(`Beli ${database[indexBeli - 1].name} berapa?`))
+          if (jumlahBeli <= database[indexBeli - 1].stock) {
+            cekJumlah = false;
+          } else {
+            alert(`Stock tidak cukup. Masukkan ulang jumlah beli`);
+            cekJumlah = true;
+          }
+          console.log(cekJumlah)
+        } while (cekJumlah == true)
+
+        let hargaTotal = database[indexBeli - 1].price * jumlahBeli;
+        let uangBayar = Number(prompt(`Total belanja anda : Rp ${hargaTotal} \n Masukkan uang anda:`))
+        if (uangBayar >= hargaTotal) {
+          database[indexBeli - 1].stock -= jumlahBeli;
+          let kembalian = uangBayar - hargaTotal;
+          alert(`Kembalian anda dalah Rp ${kembalian}`)
+        } else {
+          alert(`Pembelian gagal, uang anda tidak cukup ❌`)
+        }
+      } else {
+        alert("Index barang salah")
+      }
+    } else {
+      alert("Menu yang anda cari tidak ada");
+    }
+    stopProgram = confirm("Kembali ke menu utama?");
+
+  } while (stopProgram == true)
+</script>

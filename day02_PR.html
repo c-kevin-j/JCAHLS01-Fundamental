@@ -1,0 +1,42 @@
+<script>
+  // alert("Mari Berhitung");
+  // let angka1 = parseInt(prompt("Masukkan Angka Pertama: "));
+  // let angka2 = parseInt(prompt("Masukkan angka Kedua: "));
+  // let Pembagian = angka1 + angka2, Perkalian = angka1 * angka2;
+  // alert(`Hasil perhitungan:
+  // 1. Penjumlahan ${angka1} + ${angka2} = ${angka1 + angka2}
+  // 2. Pengurangan ${angka1} - ${angka2} = ${angka1 - angka2}
+  // 3. Pembagian ${angka1} / ${angka2} = ${angka1 / angka2}
+  // 4. Perkalian ${angka1} * ${angka2} = ${angka1 * angka2}
+  // `)
+
+  alert("Mari Berhitung");
+  let konfirmasi;
+  // 1. Menambah fitur : mendeteksi input data => jika input huruf akan gagal, kalau angka akan berjalan
+  do {
+    let angka1 = prompt("Masukkan Angka Pertama: "); // Number memastikan apakah yang diinput angka, dan sekaligus return ke angka
+    let angka2 = prompt("Masukkan angka Kedua: ");
+    if (angka1 == "" || angka2 == "") {
+      alert('Input kosong')
+    } else {
+      if (isNaN(angka1) || isNaN(angka2)) {
+        alert('Input anda salah');
+      }
+      else {
+        // angka1=parseInt(angka1);
+        // angka2=parseInt(angka2);
+        angka1 = Number(angka1);
+        angka2 = Number(angka2);
+        alert(`Hasil perhitungan:
+        1. Penjumlahan ${angka1} + ${angka2} = ${angka1 + angka2} 
+        2. Pengurangan ${angka1} - ${angka2} = ${angka1 - angka2} 
+        3. Pembagian ${angka1} / ${angka2} = ${angka1 / angka2}
+        4. Perkalian ${angka1} * ${angka2} = ${angka1 * angka2}
+        `)
+      }
+    }
+    konfirmasi = confirm("Mau lanjut berhitung lagi ?")
+    console.log(konfirmasi)
+  } while (konfirmasi == true);
+
+</script>

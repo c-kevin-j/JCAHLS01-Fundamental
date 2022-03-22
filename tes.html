@@ -1,0 +1,36 @@
+<body>
+  <h1>Drawing Your Shape</h1>
+  <select id="bentuk">
+      <option value="Persegi">Persegi</option>
+      <option value="Segitiga Siku Kiri">Segitiga SIku Kiri</option>
+  </select>
+      <br/>
+      <form id="data-form">
+          <br/>
+          <label>Size of shape</label>
+          <br/>
+          <br/>
+          <input id="sizeofshape" type="number"/>
+      <button type="button" onclick="cetakData()">Generate</button>
+      <h5 id="cetaksymC"></h5>
+      </form>
+</body>
+  <script>
+    const cetaksymC= () => {
+      var symC = ""
+          for (let i = 1; i <= 15; i++) {
+              for (let j = i; j >= 1; j--) {
+                  symC += `*# `
+              }
+              if (i < 15) {
+                  symC += "\n"
+              }
+          }
+    }
+    const cetakData = () => {
+          let form = document.getElementById("data-form")
+          let sizeOfShape = document.getElementById("sizeofshape")
+      document.getElementById("cetaksymC").innerHTML = cetaksymC;
+    }
+
+</script>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Form</title>
+
+  <style>
+    table, th, td{
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 1vw;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <fieldset style="width: 400px; margin: auto">
+      <legend>Form Student</legend>
+      <form id="data-form">
+        <label>Fullname</label>
+        <input id="fullname" type="text" /><br />
+        <label>Age</label>
+        <input id="age" type="number" /><br />
+        <label>Email</label>
+        <input id="email" type="text" /><br />
+        <label>Gender</label>
+        <input name="gender" type="radio" value="Male">Male</input>
+        <input name="gender" type="radio" value="Female">Female</input><br />
+        <label>Class Program</label>
+        <select id="program">
+          <option value="Full-stack Web">Full-stack Web</option>
+          <option value="Data Science">Data Science</option>
+          <option value="Digital Marketing">Digital Marketing</option>
+          <option value="UI/UX">UI/UX</option>
+        </select>
+      </form>
+      <br />
+      <br />
+      <button type="button" onclick="handleSubmit()">Submit</button>
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Full Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Class Program</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="list-data">
+        </tbody>
+      </table>
+    </fieldset>
+  </div>
+</body>
+
+<script>
+  let dbStudent = [];
+
+  class Student {
+    constructor(_name, _age, _email, _gender, _program) {
+      this.name = _name;
+      this.age = _age;
+      this.email = _email;
+      this.gender = _gender;
+      this.program = _program; 
+    }
+  }
+
+  const handleSubmit = () => {
+    let form = document.getElementById("data-form");
+    let fullname = form.elements[0].value;
+    let age = form.elements[1].value;
+    let email = form.elements[2].value;
+    let gender = form.elements["gender"].value;
+    let classProgram = form.elements["program"].value;
+    
+    dbStudent.push(new Student(fullname, age, email, gender, classProgram))
+    form.elements[0].value = null;
+    form.elements[1].value = null;
+    form.elements[2].value = null;
+    form.elements["gender"].value = null;
+    form.elements[5].value = null;
+
+    printData();
+  }
+
+  const handleDelete = (index) => {
+    dbStudent.splice(index,1);
+    printData();
+  }
+
+  const printData = () => {
+    let htmlElement = dbStudent.map((value,index)=>{
+      return `<tr>
+        <td>${index+1}</td>
+        <td>${value.name}</td>
+        <td>${value.age}</td>
+        <td>${value.email}</td>
+        <td>${value.gender}</td>
+        <td>${value.program}</td>
+        <td><button type="button" onclick="handleDelete(${index})">Delete</button></td>
+        </tr>
+      `
+    })
+    document.getElementById("list-data").innerHTML = htmlElement.join("");
+  }
+
+
+</script>
+
+</html>

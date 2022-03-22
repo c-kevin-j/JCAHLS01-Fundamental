@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swalayan</title>
+  <style>
+    table,th,td{
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 1vw;
+    }
+    th{
+      min-width: 8vw;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <fieldset>
+      <legend>Add Product</legend>
+      <form id="form-product">
+        <input type="text" id="img-product" placeholder="Image URL" /> <!--dibuat text karena nanti akan berupa url-->
+        <input type="text" id="name-product" placeholder="Product Name" />
+        <input type="number" id="stock-product" placeholder="Stock" />
+        <input type="number" id="price-product" placeholder="Price" />
+        <select id="category-product">
+          <option value="null" selected>Choose Category</option>
+          <option value="Food">Food</option>
+          <option value="Drink">Drink</option>
+        </select>
+      </form>
+      <button type="button" onclick="handleSubmit()">Submit</button>
+    </fieldset>
+    <fieldset>
+      <legend>Product List</legend>
+      <table>
+        <thead>
+          <tr>
+            <th>SKU</th>
+            <th>Product</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Stock</th>
+            <th>Price</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="table-list">
+
+        </tbody>
+      </table>
+    </fieldset>
+  </div>
+</body>
+
+<script src="./script.js"></script>
+
+</html>

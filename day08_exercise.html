@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day08_Exercise</title>
+</head>
+
+<body>
+  <input type=number id="angkaSatu">
+  <input type=number id="angkaDua">
+  <button type=button onclick="calculate()">Hitung</button>
+  <p>Hasil Penjumlahan = </p>
+  <h3 id="jumlah"></h3>
+  <p>Hasil Pengurangan =</p>
+  <h3 id="kurang"></h3>
+  <p>Hasil Perkalian =</p>
+  <h3 id="kali"></h3>
+  <p>Hasil Pembagian =</p>
+  <h3 id="bagi"></h3>
+
+</body>
+
+<script>
+  function calculate() {
+    let angkaSatu = document.getElementById("angkaSatu");
+    let angkaDua = document.getElementById("angkaDua")
+    jumlah.innerHTML = parseInt(angkaSatu.value) + parseInt(angkaDua.value);
+    let jumlah = document.getElementById("jumlah");
+    let kurang = document.getElementById("kurang");
+    let kali = document.getElementById("kali");
+    let bagi = document.getElementById("bagi");
+    kurang.innerHTML = parseInt(angkaSatu.value) - parseInt(angkaDua.value);
+    kali.innerHTML = parseInt(angkaSatu.value) * parseInt(angkaDua.value);
+    bagi.innerHTML = parseInt(angkaSatu.value) / parseInt(angkaDua.value);
+  }
+</script>
+
+</html>

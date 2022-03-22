@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction DOM</title>
+</head>
+
+<body>
+  <h2 id="title"></h2>
+  <!-- <form> : biasa untuk pengelompokan input-->
+  <form>
+    <input id="inName" type="text">
+    <button type=button onclick="getValue()">Get Value</button>
+  </form>
+</body>
+
+<script>
+  console.log(document.getElementById("title"));
+  let title = document.getElementById("title");
+  title.innerHTML = "Haloa";
+  function getValue(){
+    let inName = document.getElementById("inName");
+    console.log(inName.value)
+  }
+</script>
+
+</html>
