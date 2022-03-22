@@ -24,7 +24,7 @@ Menghubungkan Git dengan Github :
 - Konfigurasi username (pada terminal) : git config --global user.name "username github"
 - Konfigurasi email (pada terminal) : git config --global user.email "email github"
 
->Menyiapkan project untuk menggunakan git
+>Menyiapkan project untuk menggunakan git (pada saat pertama kali project, yang harus dilakukan step 1-3)
 1. Inisialisasi git / mengaktifkan git pada project
    - git init
 2. Melihat status git pada project / melihat bagian modified/changes
@@ -34,5 +34,7 @@ Menghubungkan Git dengan Github :
    - git add . : jika diarahkan ke semua file
 4. Menyimpan perubahan di commited session/ ke dalam git
    - git commit -m "pesan" (pesan bisa diisi definisi perubahan apa saja yang dilakukan)
-5. 
+5. Melihat history commit
+   - git log
+6. a
 
