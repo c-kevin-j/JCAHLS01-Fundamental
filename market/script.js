@@ -39,9 +39,27 @@ function handleSubmit() {
 }
 
 function printProduct(indexEdit) {
+  let indexFilter = [];
+  let dataFilter = document.getElementById("form-filter");
+  let byName = dataFilter.elements[0].value.toLowerCase();
+  let byMin = Number(dataFilter.elements[1].value);
+  let byMax = Number(dataFilter.elements[2].value);
+  let byCategory = dataFilter.elements[3].value;
+
+  dbProduct.forEach((value, index) => {
+    const validName = (byName == "" || value.name.toLowerCase().includes(byName));
+    const validPriceMin = (byMin == 0 || (value.price >= byMin))
+    const validPriceMax = (byMax == 0 || (value.price <= byMax));
+    const validCategory = (byCategory == "null" || (value.category == byCategory));
+    if (validName && validPriceMin && validPriceMax && validCategory) {
+      indexFilter.push(index)
+    }
+  })
+
   document.getElementById("table-list").innerHTML = dbProduct.map((value, index) => {
-    if (index != indexEdit) {
-      return `<tr>
+    if (indexFilter.includes(index)) {
+      if (index != indexEdit) {
+        return `<tr>
       <td>${value.sku}</td>
       <td><img src="${value.img}" width=75px></td>
       <td>${value.name}</td>
@@ -52,8 +70,8 @@ function printProduct(indexEdit) {
       <button type="button" onclick="handleDelete(${index})">Delete</button></td>
       </tr>
     `
-    } else {
-      return `<tr>
+      } else {
+        return `<tr>
       <td>${value.sku}</td>
       <td><img src="${value.img}" width=75px></td>
       <td><input type="text" id="new-name" value=${value.name} /></td>
@@ -64,6 +82,7 @@ function printProduct(indexEdit) {
       <button type="button" onclick="printProduct()">Cancel</button></td>
       </tr>
     `
+      }
     }
     // ============= Cara 2 =============
     // if (selectedIdx == index){
@@ -111,11 +130,39 @@ function handleEdit(indexEdit) {
 // }
 
 function handleSave(index) {
-  console.log(dbProduct);
   dbProduct[index].name = document.getElementById("new-name").value;
-  dbProduct[index].stock = document.getElementById("new-stock").value;
-  dbProduct[index].price = document.getElementById("new-price").value;
+  dbProduct[index].stock = Number(document.getElementById("new-stock").value);
+  dbProduct[index].price = Number(document.getElementById("new-price").value);
   printProduct();
 }
 
+function handleReset() {
+  let form = document.getElementById("form-filter");
+  form.elements[0].value = null;
+  form.elements[1].value = null;
+  form.elements[2].value = null;
+  form.elements[3].value = null;
+  printProduct();
+}
 printProduct();
+
+
+//////// Filter Product ///////
+function handleFilter() {
+  // 1. get value dari form filter
+  let form = document.getElementById("form-filter");
+  let filterName = form.elements[0].value;
+  let filterMin = parseInt(form.elements[1].value);
+  let filterMax = parseInt(form.elements[2].value);
+  let filterCategory = form.elements[3].value;
+  console.log("Cek input: ",filterName, filterMin, filterMax, filterCategory)
+  // 2. proses filter data
+  let dataFilter = dbProduct.filter((value,index)=>{
+    if (filterName.length > 0){
+      return value.name.toLoweCase().includes(filterName.toLowerCase());
+    }
+  })
+  // 3. mencetak data
+  printProduct(dataFilter); //di printProduct beri argumen dengan nilai default dbProduk; function printProduct(data=dbProduct) => saat map langsung digunakan data, bukan dbProduct lagi
+  // 4. reset form filter
+}

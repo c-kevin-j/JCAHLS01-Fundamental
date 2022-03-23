@@ -36,6 +36,25 @@
       <button type="button" onclick="handleSubmit()">Submit</button>
     </fieldset>
     <fieldset>
+      <legend>Filter Data</legend>
+      <form id="form-filter">
+        <label>By Name</label>
+        <input type="text" id="byName" /><br />
+        <label>By Price</label>
+        <input type="number" id="byMin" placeholder="Minimum"/>
+        <input type="number" id="byMax" placeholder="Maximum"/><br />
+        <label>By Category</label>
+        <select id="filter-category">
+          <option value="null" selected>Choose Category</option>
+          <option value="Food">Food</option>
+          <option value="Drink">Drink</option>
+        </select><br />
+        <button type="button" onclick="printProduct()">Search</button>
+        <button type="button" onclick="handleReset()">Reset</button>
+        <br />
+      </form>
+    </fieldset>
+    <fieldset>
       <legend>Product List</legend>
       <table>
         <thead>
