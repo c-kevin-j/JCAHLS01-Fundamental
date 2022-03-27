@@ -9,12 +9,22 @@ class Product {
   }
 }
 
+class Cart extends Product {
+  constructor(_sku, _img, _name, _price, _qty) {
+    super(_sku, _img, _name, null, null, _price)
+    this.qty = _qty;
+    this.subTotal = _price * _qty;
+  }
+}
+
 let dbProduct = [
   new Product("SKU-1-126374", "https://pbs.twimg.com/profile_images/649550988169211904/ALQZxXEb_400x400.jpg", "Oreo", "Food", 25, 7500),
   new Product("SKU-2-198374", "https://ih1.redbubble.net/image.1665309730.5469/raf,128x128,075,f,fafafa:ca443f4786.jpg", "Pocari", "Drink", 50, 10000)
 ]
 
-// let selectedIdx;
+let dbCart = [
+  new Cart("SKU-1-126374", "https://pbs.twimg.com/profile_images/649550988169211904/ALQZxXEb_400x400.jpg", "Oreo", 7500, 3)
+]
 
 function handleSubmit() {
   let form = document.getElementById("form-product");
@@ -68,6 +78,7 @@ function printProduct(indexEdit) {
       <td>IDR ${value.price.toLocaleString()}</td>
       <td><button type="button" onclick="handleEdit(${index})">Edit</button>
       <button type="button" onclick="handleDelete(${index})">Delete</button></td>
+      <td><button type="button" onclick="handleBuy('${value.sku}')">🛒Buy</td>
       </tr>
     `
       } else {
@@ -84,32 +95,7 @@ function printProduct(indexEdit) {
     `
       }
     }
-    // ============= Cara 2 =============
-    // if (selectedIdx == index){
-    //   return `<tr>
-    //   <td>${value.sku}</td>
-    //   <td><img src="${value.img}" width=75px></td>
-    //   <td><input type="text" id="new-name" value=${value.name} /></td>
-    //   <td>${value.category}</td>
-    //   <td><input type="number" id="new-stock" value=${value.stock} /></td>
-    //   <td><input type="number" id="new-price" value=${value.price} /></td>
-    //   <td><button type="button" onclick="">Save</button>
-    //   <button type="button" onclick="handleCancel()">Cancel</button></td>
-    //   </tr>
-    // `
-    // } else {
-    //   return `<tr>
-    //   <td>${value.sku}</td>
-    //   <td><img src="${value.img}" width=75px></td>
-    //   <td>${value.name}</td>
-    //   <td>${value.category}</td>
-    //   <td>${value.stock.toLocaleString()}</td>
-    //   <td>IDR ${value.price.toLocaleString()}</td>
-    //   <td><button type="button" onclick="handleEdit(${index})">Edit</button>
-    //   <button type="button" onclick="handleDelete(${index})">Delete</button></td>
-    //   </tr>
-    // `
-    // }
+
   }).join("");
 }
 
@@ -121,13 +107,8 @@ function handleDelete(indexDelete) {
 }
 
 function handleEdit(indexEdit) {
-  // selectedIdx = indexEdit;
   printProduct(indexEdit);
 }
-
-// function handleCancel() {
-//   selectedIdx = null;
-// }
 
 function handleSave(index) {
   dbProduct[index].name = document.getElementById("new-name").value;
@@ -144,25 +125,55 @@ function handleReset() {
   form.elements[3].value = null;
   printProduct();
 }
+
 printProduct();
 
-
-//////// Filter Product ///////
-function handleFilter() {
-  // 1. get value dari form filter
-  let form = document.getElementById("form-filter");
-  let filterName = form.elements[0].value;
-  let filterMin = parseInt(form.elements[1].value);
-  let filterMax = parseInt(form.elements[2].value);
-  let filterCategory = form.elements[3].value;
-  console.log("Cek input: ",filterName, filterMin, filterMax, filterCategory)
-  // 2. proses filter data
-  let dataFilter = dbProduct.filter((value,index)=>{
-    if (filterName.length > 0){
-      return value.name.toLoweCase().includes(filterName.toLowerCase());
-    }
+/////////////////// Manage Transaction ///////////////////
+function printKeranjang() {
+  let htmlElement = dbCart.map((value, index) => {
+    return `
+    <tr>
+        <td>${index + 1}</td>
+        <td>${value.sku}</td>
+        <td><img src="${value.img}" width="75px"></td>
+        <td>${value.name}</td>
+        <td>IDR. ${value.price.toLocaleString()}</td>
+        <td>${value.qty.toLocaleString()}</td>
+        <td>IDR. ${value.subTotal.toLocaleString()}</td>
+        <td>
+        <button type="button" onclick="handleDeleteCart('${value.sku}')">Delete</button>
+        </td>
+    </tr>
+    `
   })
-  // 3. mencetak data
-  printProduct(dataFilter); //di printProduct beri argumen dengan nilai default dbProduk; function printProduct(data=dbProduct) => saat map langsung digunakan data, bukan dbProduct lagi
-  // 4. reset form filter
+
+  document.getElementById("cart-list").innerHTML = htmlElement.join("");
+}
+printKeranjang()
+
+function handleBuy(skuBuy) {
+  let idxDB = dbProduct.findIndex((val) => val.sku == skuBuy)
+  let idxCart = dbCart.findIndex((val) => val.sku == skuBuy);
+  if (idxCart == -1) {
+    dbCart.push(new Cart(dbProduct[idxDB].sku, dbProduct[idxDB].img, dbProduct[idxDB].name, dbProduct[idxDB].price, 1))
+  } else {
+    if (dbCart[idxCart].qty + 1 > dbProduct[idxDB].stock) {
+      alert('Stok tidak mencukupi');
+    } else {
+      dbCart[idxCart].qty += 1;
+      dbCart[idxCart].subTotal = dbCart[idxCart].qty * dbCart[idxCart].price;
+    }
+  }
+  printKeranjang();
+}
+
+function handleDeleteCart(skuDelete) {
+  let idxCart = dbCart.findIndex((val) => val.sku == skuDelete);
+  if ((dbCart[idxCart].qty - 1) > 0) {
+    dbCart[idxCart].qty -= 1;
+    dbCart[idxCart].subTotal = dbCart[idxCart].qty * dbCart[idxCart].price;
+  } else {
+    dbCart.splice(idxCart, 1);
+  }
+  printKeranjang();
 }
