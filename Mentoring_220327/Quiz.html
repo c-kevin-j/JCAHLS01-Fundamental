@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <center>
+  <h1>Quiz Purwadhika</h1>
+  <fieldset>
+    <form id="answers">
+      <p><b>1. Siapakah Presiden Ke-3 Republik Indonesia?</b></p>
+      <input name="no1" type="radio" value="A">Prof B.J. Habibie</input>
+      <input name="no1" type="radio" value="B">Abdurrahman Wahid</input>
+      <input name="no1" type="radio" value="C">Ir. Soekarno</input>
+      <input name="no1" type="radio" value="D">Joko Widodo</input><br />
+
+      <p><b>2. Berikut ini adalah nama bahasa pemrograman, kecuali?</b></p>
+      <input name="no2" type="radio" value="A">Python</input>
+      <input name="no2" type="radio" value="B">Inggris</input>
+      <input name="no2" type="radio" value="C">C++</input>
+      <input name="no2" type="radio" value="D">Assembly</input><br />
+
+      <p><b>3. Mana yang tidak termasuk keyword variable Javascript?</b></p>
+      <input name="no3" type="radio" value="A">const</input>
+      <input name="no3" type="radio" value="B">var</input>
+      <input name="no3" type="radio" value="C">let</input>
+      <input name="no3" type="radio" value="D">function</input><br />
+
+      <p><b>4. 2+2 = ...?</b></p>
+      <input name="no4" type="radio" value="A">6</input>
+      <input name="no4" type="radio" value="B">8</input>
+      <input name="no4" type="radio" value="C">2</input>
+      <input name="no4" type="radio" value="D">4</input><br />
+    </form>
+    <button type=button onclick="handleSubmit()">Correct</button>
+    <button type=button id="reset" onclick="handleReset()">Reset</button>
+  </fieldset>
+  <p id="score"></p>
+  </center>
+</body>
+
+
+<script src="./Quiz_script.js"></script>
+
+</html>

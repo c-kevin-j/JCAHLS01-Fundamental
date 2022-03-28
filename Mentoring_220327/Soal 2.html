@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Info Corona</title>
+  <style>
+    table,th,td{
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 1vw;
+    }
+    th{
+      min-width: 8vw;
+    }
+  </style>
+</head>
+<body>
+  <fieldset>
+    <legend>Warga</legend>
+    <table>
+      <thead>
+        <tr>
+          <th>Antrian</th>
+          <th>Nama</th>
+          <th>Asal</th>
+          <th>Tujuan</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id='list-antrian'>
+
+      </tbody>
+      <tr>
+        <td></td>
+        <td><input type="text" id="inputNama" placeholder="Input Nama" /></td>
+        <td><input type="text" id="inputAsal" placeholder="Input Asal" /></td>
+        <td><input type="text" id="inputTujuan" placeholder="Input Tujuan" /></td>
+        <td><button type="button" onclick="handleAntri()">Antri</button></td>
+        </tr>
+    </table>
+  </fieldset>  
+  <fieldset>
+    <legend>Rapid Test</legend>
+    <table>
+      <thead>
+        <tr>
+          <th>Antrian</th>
+          <th>Nama</th>
+          <th>Asal</th>
+          <th>Tujuan</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id='list-rapid'>
+
+      </tbody>
+    </table>
+  </fieldset>
+  <fieldset>
+    <legend>Pasien Positif</legend>
+    <table>
+      <thead>
+        <tr>
+          <th>Antrian</th>
+          <th>Nama</th>
+          <th>Asal</th>
+          <th>Tujuan</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id='list-positif'>
+
+      </tbody>
+    </table>
+  </fieldset>
+  <fieldset>
+    <legend>Pasien Negatif</legend>
+    <table>
+      <thead>
+        <tr>
+          <th>Antrian</th>
+          <th>Nama</th>
+          <th>Asal</th>
+          <th>Tujuan</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id='list-negatif'>
+
+      </tbody>
+      
+    </table>
+  </fieldset>
+</body>
+
+<script src="./Soal 2.js"></script>
+
+</html>
