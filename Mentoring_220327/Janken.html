@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Permainan Suit</title>
+
+<body>
+  <center>
+    <h2>Suit</h2>
+    <p>
+      <img src="gunting.png" width=100px>
+      <img src="batu.png" width=100px>
+      <img src="kertas.png" width=100px>
+    </p>
+    <p id="play">
+      <button type="button" value="gunting" onclick="btnPlay(0)">Gunting</button>
+      <button type="button" value="batu" onclick="btnPlay(1)">Batu</button>
+      <button type="button" value="kertas" onclick="btnPlay(2)">Kertas</button>
+    </p>
+    <h2>Player</h2>
+    <p id="player"></p>
+    <p><img src="Versus-PNG-Clipart.png" width=100px></p>
+    <h2>PC</h2>
+    <p id="pc"></p>
+    <p id="message"></p>
+    <p id="score"></p>
+  </center>
+</body>
+
+<script>
+  let janken = [
+    `<img src="./gunting.png" width ="135px" alt="gunting"/>`,
+    `<img src="./batu.png" width ="135px" alt="batu"/>`,
+    `<img src="./kertas.png" width ="135px" alt="kertas"/>`,
+  ];
+  let score = {
+    win: 0,
+    lose: 0,
+    draw: 0
+  }
+
+  let message = ["Player WIN ✅", "Player LOSE ❌", "DRAW 🔼"]
+
+  const check = (pcValue, playerWin, playerLose) => {
+    if (pcValue == playerWin){
+      score.win++
+      return message[0];
+    } else if (pcValue == playerLose) {
+      score.lose++;
+      return message[1];
+    } else {
+      score.draw++;
+      return message[2];
+    }
+  }
+
+  let pc = null;
+  let shuffle = setInterval(()=> {
+    pc = Math.round(Math.random() *2);
+    document.getElementById("pc").innerHTML = janken[pc]
+  },50)
+
+  const btnPlay = (player) => {
+    let repeat = setInterval(()=> {
+    pc = Math.round(Math.random() *2);
+    document.getElementById("pc").innerHTML = janken[pc]
+  },50)
+    document.getElementById("player").innerHTML = janken[player];
+    document.getElementById("message").innerHTML = ``;
+  setTimeout(() => {
+    if (player == 0){
+      document.getElementById("message").innerHTML = check(pc,2,1);
+    } else if (player == 1) {
+      document.getElementById("message").innerHTML = check(pc,0,2);
+    } else if (player == 2) {
+      document.getElementById("message").innerHTML = check(pc,1,0);
+    }
+    document.getElementById("score").innerHTML = `Result: <br/> WIN:${score.win}, LOSE: ${score.lose}, DRAW: ${score.draw}<br/>Final Score: ${score.win * 25}`;
+      clearInterval(shuffle)
+      clearInterval(repeat)
+    }, 2000)
+
+  }
+
+</script>
+
+</html>

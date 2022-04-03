@@ -17,14 +17,25 @@ class Cart extends Product {
   }
 }
 
+class Transaction {
+  constructor(_index,_username,_date,_totalPayment,_change,_detail) {
+    this.index = _index;
+    this.username = _username;
+    this.date = _date;
+    this.totalPayment = _totalPayment;
+    this.change = _change;
+    this.detail = _detail;
+  }
+}
+
 let dbProduct = [
   new Product("SKU-1-126374", "https://pbs.twimg.com/profile_images/649550988169211904/ALQZxXEb_400x400.jpg", "Oreo", "Food", 25, 7500),
   new Product("SKU-2-198374", "https://ih1.redbubble.net/image.1665309730.5469/raf,128x128,075,f,fafafa:ca443f4786.jpg", "Pocari", "Drink", 50, 10000)
 ]
 
-let dbCart = [
-  new Cart("SKU-1-126374", "https://pbs.twimg.com/profile_images/649550988169211904/ALQZxXEb_400x400.jpg", "Oreo", 7500, 3)
-]
+let dbCart = []
+
+let dbTransaction = []
 
 function handleSubmit() {
   let form = document.getElementById("form-product");
@@ -148,32 +159,100 @@ function printKeranjang() {
   })
 
   document.getElementById("cart-list").innerHTML = htmlElement.join("");
+  totalHarga();
 }
-printKeranjang()
+
 
 function handleBuy(skuBuy) {
   let idxDB = dbProduct.findIndex((val) => val.sku == skuBuy)
   let idxCart = dbCart.findIndex((val) => val.sku == skuBuy);
   if (idxCart == -1) {
     dbCart.push(new Cart(dbProduct[idxDB].sku, dbProduct[idxDB].img, dbProduct[idxDB].name, dbProduct[idxDB].price, 1))
+    dbProduct[idxDB].stock -= 1
   } else {
-    if (dbCart[idxCart].qty + 1 > dbProduct[idxDB].stock) {
+    if (dbProduct[idxDB].stock == 0) {
       alert('Stok tidak mencukupi');
     } else {
+      dbProduct[idxDB].stock -= 1
       dbCart[idxCart].qty += 1;
       dbCart[idxCart].subTotal = dbCart[idxCart].qty * dbCart[idxCart].price;
     }
   }
+  printProduct();
   printKeranjang();
 }
 
 function handleDeleteCart(skuDelete) {
+  let idxDB = dbProduct.findIndex((val) => val.sku == skuDelete)
   let idxCart = dbCart.findIndex((val) => val.sku == skuDelete);
+
+  dbProduct[idxDB].stock += 1
   if ((dbCart[idxCart].qty - 1) > 0) {
     dbCart[idxCart].qty -= 1;
     dbCart[idxCart].subTotal = dbCart[idxCart].qty * dbCart[idxCart].price;
   } else {
     dbCart.splice(idxCart, 1);
   }
+  printProduct();
   printKeranjang();
+}
+
+let hargaBayar=0;
+function totalHarga() {
+  // bisa juga isinya dipindahkan ke print keranjang
+  hargaBayar = 0;
+  dbCart.forEach((value) => {
+    hargaBayar += value.subTotal;
+  }
+  )
+  document.getElementById("total-harga").innerHTML = `IDR ${hargaBayar.toLocaleString()}`;
+}
+
+function handleCheckout() {
+  let totalBayar = parseInt(document.getElementById("total-bayar").value);
+  if (totalBayar < hargaBayar) {
+    document.getElementById("kwitansi").innerHTML = `<td colspan=2>Uang Anda tidak mencukupi</td>`
+  } else if (totalBayar >= hargaBayar) {
+    document.getElementById("kwitansi").innerHTML = `<td colspan=2>Total belanja = IDR ${hargaBayar.toLocaleString()}; Total Bayar = IDR ${totalBayar.toLocaleString()}; Kembalian Anda = IDR ${(totalBayar - hargaBayar).toLocaleString()} </td>`
+
+    let username = document.getElementById("user-name").value
+    let date = new Date();
+    dbTransaction.push(new Transaction(dbTransaction.length+1,username, `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`,totalBayar,totalBayar-hargaBayar,dbCart))
+    console.log(dbTransaction)
+    document.getElementById("total-bayar").value = null
+    hargaBayar = 0;
+    document.getElementById("total-harga").innerHTML = 0;
+    dbCart = []
+    document.getElementById("user-name").value = null;
+
+    printKeranjang();
+  } else {
+    document.getElementById("kwitansi").innerHTML = ``
+  }
+  printHistori();
+}
+
+function printHistori() {
+  document.getElementById("histori-transaksi").innerHTML = dbTransaction.map((val,idx) => {
+    return`<tr>
+    <td>${val.index}</td>
+    <td>${val.username}</td>
+    <td>${val.date}</td>
+    <td>${parseInt(val.totalPayment) - parseInt(val.change)}</td>
+    </tr>
+    `
+  }).join("")
+}
+
+function handleCancelCheckout() {
+  dbCart.forEach((val) => {
+    dbProduct.forEach((value)=> {
+      if (val.sku==value.sku){
+        value.stock+=val.qty
+      }
+    })
+  })
+  dbCart = [];
+  printKeranjang();
+  printProduct();
 }

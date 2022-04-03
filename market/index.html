@@ -36,6 +36,13 @@
       <button type="button" onclick="handleSubmit()">Submit</button>
     </fieldset>
     <fieldset>
+      <legend>Username</legend>
+      <h5>
+        Input Username:
+        <input type="text" id="user-name" placeholder="Username">
+      </h5>
+    </fieldset>
+    <fieldset>
       <legend>Filter Data</legend>
       <form id="form-filter">
         <label>By Name</label>
@@ -90,6 +97,44 @@
           </tr>
         </thead>
         <tbody id="cart-list">
+
+        </tbody>
+      </table>
+    </fieldset>
+    <fieldset>
+      <legend>Checkout</legend>
+      <table>
+        <thead>
+          <tr>
+            <th>Total Belanja</th>
+            <th>Input Uang untuk Membayar</th>
+          </tr>
+        </thead>
+        <tbody id="checkout">
+          <tr>
+            <td id="total-harga">IDR 0</td>
+            <td><input type="number" id="total-bayar"></td>
+          </tr>
+          <tr id="kwitansi">
+            
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" onclick="handleCheckout()">Checkout</button>
+      <button type="button" onclick="handleCancelCheckout()">Cancel</button>
+    </fieldset>
+    <fieldset>
+      <legend>Histori Transaksi</legend>
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Tanggal</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="histori-transaksi">
 
         </tbody>
       </table>

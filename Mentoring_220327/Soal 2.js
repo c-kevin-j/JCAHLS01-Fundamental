@@ -79,8 +79,7 @@ function randomizedID() {
   let nomorAntri = ``;
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
   for (let i = 1; i <= 5; i++) {
-    let random = Math.floor(Math.random() * 36) + 1;
-    nomorAntri += characters[random];
+    nomorAntri += characters[Math.floor(Math.random() * characters.length)];
   }
   return nomorAntri;
 }

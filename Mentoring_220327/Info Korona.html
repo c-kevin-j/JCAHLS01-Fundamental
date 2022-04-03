@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    table,
+    tr,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      height: 50px;
+      width: 50px;
+      text-align: center;
+    }
+
+    /* th {
+            background-color: aqua;
+        } */
+  </style>
+  </style>
+</head>
+<fieldset style="width: 340px;">
+  <legend>Warga</legend>
+  <table>
+    <thead>
+      <td>Antrian</td>
+      <td>Nama</td>
+      <td>Asal</td>
+      <td>Tujuan</td>
+      <td>Action</td>
+    </thead>
+    <tbody id="tb_warga">
+
+
+    </tbody>
+    <tfoot>
+      <tr>
+        <td></td>
+        <td><input type="text" id="inputNama" /></td>
+        <td><input type="text" id="inputAsal" /></td>
+        <td><input type="text" id="inputTujuan" /></td>
+        <td><button type="button" onclick="handleSubmit()">Antri</button></td>
+      </tr>
+    </tfoot>
+  </table>
+</fieldset>
+<br>
+
+<fieldset style="width: 340px;">
+  <legend>Rapid Test</legend>
+  <table>
+    <thead>
+      <td>Antrian</td>
+      <td>Nama</td>
+      <td>Asal</td>
+      <td>Tujuan</td>
+      <td>Action</td>
+    </thead>
+    <tbody id="tb_rapid">
+
+    </tbody>
+  </table>
+</fieldset>
+<br>
+<fieldset style="width: 340px;">
+  <legend> Pasien Positif</legend>
+  <table>
+    <thead>
+      <td>Antrian</td>
+      <td>Nama</td>
+      <td>Asal</td>
+      <td>Tujuan</td>
+      <td>Action</td>
+    </thead>
+    <tbody id="tb_positif">
+
+    </tbody>
+  </table>
+</fieldset>
+<br>
+<fieldset style="width: 340px;">
+  <legend> Pasien Negatif</legend>
+  <table>
+    <thead>
+      <td>Antrian</td>
+      <td>Nama</td>
+      <td>Asal</td>
+      <td>Tujuan</td>
+      <td>Action</td>
+    </thead>
+    <tbody id="tb_negatif">
+
+    </tbody>
+  </table>
+</fieldset>
+
+<body>
+  <script>
+    // database
+    class Warga {
+      constructor(_antrian, _nama, _asal, _tujuan) {
+        this.antrian = _antrian
+        this.nama = _nama
+        this.asal = _asal
+        this.tujuan = _tujuan
+        this.status = "Listed"
+      }
+
+      makeAction = () => {
+        if (this.status == "Listed") {
+          return `<button  type="button" onclick="handleToRapid('${this.antrian}','Rapid')">Rapid Test</button>`
+        } else if (this.status == "Rapid") {
+          return `<select id="result-${this.antrian}" onchange="handleToRapid('${this.antrian}')">
+                        <option value="null">Pilih</option>
+                        <option value="Positif">Positif</option>
+                        <option value="Negatif">Negatif</option>
+                        </select>
+                        `
+        } else if (this.status == "Positif") {
+          return `<select id="report-${this.antrian}" onchange="handleToRapid('${this.antrian}')">
+                        <option value="null">Pilih</option>
+                        <option value="Listed">Sembuh</option>
+                        <option value="Dead">Meninggal</option>
+                    </select>
+                    `
+        } else if (this.status == "Negatif") {
+          return `<button  type="button" onclick="handleToRapid('${this.antrian}','Listed')">To Warga</button>`
+        }
+      }
+    }
+    let data = [
+      new Warga("A27BNL", 'Bayu', "Tasikmalaya", "Bogor"),
+      new Warga("H27DKH", 'Dimas', "Sumedang", "Cianjur"),
+      new Warga("IOA900", 'Yudi', "Sukabumi", "Cidodol")
+    ]
+    // let dataRapid = [], dataPositif = [], dataNegatif = []; 
+    let dataMeninggal = [];
+
+    const printData = (status, print) => {
+      let dataFilter = data.filter(value => {
+        return value.status == status
+      })
+      document.getElementById(print).innerHTML = dataFilter.map((value, index) => {
+        return `
+                <tr>
+                <td>${value.antrian}</td>
+                <td>${value.nama}</td>
+                <td>${value.asal}</td>
+                <td>${value.tujuan}</td>
+                <td>${value.makeAction()}</td>
+                </tr>
+                `
+      }).join("")
+    }
+
+    printData("Listed", "tb_warga");
+
+    const handleSubmit = () => {
+      // 1. mengenerate nomor antrian
+      let char = `ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890`;
+      let code = '';
+      for (let i = 0; i <= 5; i++) {
+        code += char.charAt(Math.floor(Math.random() * char.length))
+      }
+      console.log(code);
+      // 2. menyimpan data 
+      let nama = document.getElementById("inputNama").value;
+      let asal = document.getElementById("inputAsal").value;
+      let tujuan = document.getElementById("inputTujuan").value;
+
+      console.log(nama, asal, tujuan)
+      console.log(Boolean(nama), Boolean(asal), Boolean(tujuan))
+      if (nama && asal && tujuan) {
+        data.push(new Warga(code, nama, asal, tujuan));
+      } else {
+        alert("isi semua form")
+      }
+
+      // 3. merefresh ulang tampilan
+      printData("Listed", "tb_warga");
+      console.log(data)
+      document.getElementById("inputNama").value = "";
+      document.getElementById("inputAsal").value = "";
+      document.getElementById("inputTujuan").value = "";
+    }
+
+    const handleToRapid = (kode_antrian, status) => {
+      let dataIdx = data.findIndex(val => val.antrian == kode_antrian);
+
+      console.log(kode_antrian, status)
+      if (status) {
+        data[dataIdx].status = status;
+      } else {
+        let result = document.getElementById(`result-${kode_antrian}`)
+        let report = document.getElementById(`report-${kode_antrian}`)
+        if (result || report) {
+          if (result) {
+            data[dataIdx].status = result.value;
+          }
+          if (report) {
+            data[dataIdx].status = report.value;
+          }
+        }
+      }
+      printData("Listed", "tb_warga");
+      printData("Rapid", "tb_rapid");
+      printData("Positif", "tb_positif");
+      printData("Negatif", "tb_negatif");
+    }
+
+
+  </script>
+</body>
+
+</html>

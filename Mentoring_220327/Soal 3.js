@@ -10,13 +10,8 @@ function handleSubmit(player) {
   let opponent = opponentPlay();
   hasil = contest(player, opponent);
 
-  document.getElementById("play-suit").innerHTML = `
-  <h2>Player</h2>
-  <img src=${player}.png width=100px><br />
-  <img src="Versus-PNG-Clipart.png" width=100px>
-  <h2>PC</h2>
-  <img src=${opponent}.png width=100px>
-  `
+  document.getElementById("player-suit").innerHTML = `<img src=${player}.png width=100px><br />`
+  document.getElementById("pc-suit").innerHTML =`<img src=${opponent}.png width=100px>`
 
   document.getElementById("result").innerHTML = `
   <p>Kamu ${hasil.lastResult}</p>

@@ -27,11 +27,11 @@
   function calculate() {
     let angkaSatu = document.getElementById("angkaSatu");
     let angkaDua = document.getElementById("angkaDua")
-    jumlah.innerHTML = parseInt(angkaSatu.value) + parseInt(angkaDua.value);
     let jumlah = document.getElementById("jumlah");
     let kurang = document.getElementById("kurang");
     let kali = document.getElementById("kali");
     let bagi = document.getElementById("bagi");
+    jumlah.innerHTML = parseInt(angkaSatu.value) + parseInt(angkaDua.value);
     kurang.innerHTML = parseInt(angkaSatu.value) - parseInt(angkaDua.value);
     kali.innerHTML = parseInt(angkaSatu.value) * parseInt(angkaDua.value);
     bagi.innerHTML = parseInt(angkaSatu.value) / parseInt(angkaDua.value);
