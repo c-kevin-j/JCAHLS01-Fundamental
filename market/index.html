@@ -83,6 +83,7 @@
     </fieldset>
     <fieldset>
       <legend>Cart List</legend>
+      <button type="button" onclick="handleDeleteCartSelected()">Delete</button>
       <table>
         <thead>
           <tr>
@@ -107,12 +108,16 @@
         <thead>
           <tr>
             <th>Total Belanja</th>
+            <th>Diskon</th>
+            <th>Harga Setelah Diskon</th>
             <th>Input Uang untuk Membayar</th>
           </tr>
         </thead>
         <tbody id="checkout">
           <tr>
-            <td id="total-harga">IDR 0</td>
+            <td id="total-harga"></td>
+            <td><input type="number" id="persentase-diskon" placeholder="%" /></td>
+            <td id="harga-diskon"></td>
             <td><input type="number" id="total-bayar"></td>
           </tr>
           <tr id="kwitansi">
@@ -120,6 +125,7 @@
           </tr>
         </tbody>
       </table>
+      <button type="button" onclick="handleDiscount()">Diskon</button>
       <button type="button" onclick="handleCheckout()">Checkout</button>
       <button type="button" onclick="handleCancelCheckout()">Cancel</button>
     </fieldset>
@@ -132,12 +138,15 @@
             <th>Nama</th>
             <th>Tanggal</th>
             <th>Total</th>
+            <th>Diskon</th>
           </tr>
         </thead>
         <tbody id="histori-transaksi">
 
         </tbody>
       </table>
+      <h3>Total Omset:</h3>
+      <p id="total-omset"></p>
     </fieldset>
   </div>
 </body>

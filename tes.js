@@ -79,15 +79,10 @@
 // console.log(db)
 
 let data = "halo selamat pagi"
-// console.log(data.slice(-4))
+console.log(data.slice(-4))
 
-const salad = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
-const saladCopy = salad.slice();
+console.log(tes())
 
-console.log(salad); // ['🍅', '🍄', '🥦', '🥒', '🌽', '🥕', '🥑']
-console.log(saladCopy); // ['🍅', '🍄', '🥦', '🥒', '🌽', '🥕', '🥑']
-
-GetDouble(4)
-const GetDouble = function (numb){
-  console.log(2*2)
+const tes = function() {
+  console.log('halo')
 }
